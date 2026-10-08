@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <h2>🎓 STUDENT PORTAL</h2>
+    </header>
+
+    <div class="main-container">
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="#" class="nav-link active-link" onclick="showPage('home-page', this)">Home</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('admin-login-page', this)">Admin Login</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('student-reg-page', this)">Student Registration</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('student-login-page', this)">Student Login</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('settings-page', this)">Settings</a></li>
+            </ul>
+        </nav>
+
+        <main class="content-page">
+            
+            <section id="home-page" class="page active">
+                <h1 class="page-title">Welcome to Student portal</h1>
+            </section>
+
+            <section id="admin-login-page" class="page">
+                <h2 class="page-title">Admin Login</h2>
+                
+                <div id="admin-login-section" class="form-card">
+                    <form id="admin-login-form" onsubmit="handleAdminLogin(event)">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="admin-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="admin-password" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Login</button>
+                    </form>
+                </div>
+
+                <div id="admin-dashboard" style="display: none;">
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <h4>TOTAL STUDENTS</h4>
+                            <p id="count-total">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>ACTIVE</h4>
+                            <p id="count-active">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h4>NON-ACTIVE</h4>
+                            <p id="count-inactive">0</p>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Branch</th>
+                                    <th>Course</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="student-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="student-reg-page" class="page">
+                <h2 class="page-title">Student Registration Form</h2>
+                <div class="form-card">
+                    <form id="student-reg-form" onsubmit="handleStudentRegister(event)">
+                        <div class="form-group">
+                            <label>Username (Must start with Capital Letter)</label>
+                            <input type="text" id="reg-username" placeholder="e.g. John" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email (Must end with @gmail.com)</label>
+                            <input type="email" id="reg-email" placeholder="example@gmail.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number (10 digits starting with 6,7,8,9)</label>
+                            <input type="text" id="reg-phone" maxlength="10" placeholder="9876543210" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password (Must contain 1 special character)</label>
+                            <input type="password" id="reg-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="reg-confirm-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Branch</label>
+                            <select id="reg-branch" onchange="updateCourseDropdown()" required>
+                                <option value="">Select Branch</option>
+                                <option value="B-Tech">B-Tech</option>
+                                <option value="BCA">BCA</option>
+                                <option value="B.Com">B.Com</option>
+                                <option value="B.Sc">B.Sc</option>
+                                <option value="MBA">MBA</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Course</label>
+                            <select id="reg-course" required disabled>
+                                <option value="">Select Branch First</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="reg-gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Age</label>
+                            <input type="number" id="reg-age" min="15" max="100" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Register</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="student-login-page" class="page">
+                <h2 class="page-title">Student Login</h2>
+                <div id="student-login-section" class="form-card">
+                    <form id="student-login-form" onsubmit="handleStudentLogin(event)">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="login-username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Login</button>
+                    </form>
+                </div>
+
+                <div id="student-dashboard" class="form-card" style="display: none; margin-top: 20px;">
+                    <h3>Student Profile Details</h3>
+                    <div id="student-details" style="margin-top: 15px; line-height: 1.8;"></div>
+                </div>
+            </section>
+
+            <section id="settings-page" class="page">
+                <h1 class="page-title">Welcome to Settings page</h1>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
